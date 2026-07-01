@@ -1,0 +1,6 @@
+As a user, I want to reset my password via email so that I can regain access to my account if I forget it.
+
+Other good demo examples:
+- As a user, I want to filter a product list by price range so that I can find items within my budget.
+- As an admin, I want to export user activity logs as CSV so that I can audit account access.
+- As a user, I want to upload a profile picture with size/type validation so that my profile looks personalized without breaking the app.

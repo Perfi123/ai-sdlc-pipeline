@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI-Driven SDLC Pipeline</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #161d27;
+    --border: #263240;
+    --accent: #5dade2;
+    --green: #4caf78;
+    --red: #e57373;
+    --amber: #d9a441;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  header {
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 { margin: 0 0 4px; font-size: 22px; }
+  header p { margin: 0; color: var(--muted); font-size: 14px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 32px 80px; }
+
+  .input-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 28px;
+  }
+  textarea {
+    width: 100%;
+    min-height: 90px;
+    background: #0c1116;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 12px;
+    font-size: 14px;
+    resize: vertical;
+    font-family: inherit;
+  }
+  .row { display: flex; gap: 12px; margin-top: 12px; align-items: center; flex-wrap: wrap; }
+  select, button {
+    background: #0c1116;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  button.primary {
+    background: var(--accent);
+    color: #06121c;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  label { font-size: 13px; color: var(--muted); }
+
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .stage {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .stage-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+  }
+  .stage-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .stage-dot.running { background: var(--amber); animation: pulse 1s infinite; }
+  .stage-dot.done { background: var(--green); }
+  .stage-dot.failed { background: var(--red); }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .stage-title { font-weight: 600; flex-grow: 1; }
+  .stage-sub { color: var(--muted); font-size: 13px; }
+  .stage-body {
+    display: none;
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border);
+  }
+  .stage-body.open { display: block; }
+  .stage-body pre {
+    background: #0c1116;
+    padding: 12px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 12.5px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  .badge.pass { background: rgba(76,175,120,0.15); color: var(--green); }
+  .badge.fail { background: rgba(229,115,115,0.15); color: var(--red); }
+  .badge.skip { background: rgba(217,164,65,0.15); color: var(--amber); }
+
+  .report {
+    margin-top: 24px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .report h3 { margin-top: 0; }
+  .metrics { display: flex; gap: 24px; flex-wrap: wrap; }
+  .metric { min-width: 140px; }
+  .metric .value { font-size: 24px; font-weight: 700; color: var(--accent); }
+  .metric .label { font-size: 12px; color: var(--muted); }
+
+  .error-box {
+    background: rgba(229,115,115,0.1);
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 14px;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>AI-Driven SDLC Pipeline</h1>
+  <p>Requirement → Planning → Code → Test → Deployment, powered by Claude via Portkey</p>
+</header>
+
+<div class="container">
+
+  <div class="input-panel">
+    <label for="story">User story / feature idea</label>
+    <textarea id="story" placeholder="As a user, I want to reset my password via email so that I can regain access to my account if I forget it.">As a user, I want to reset my password via email so that I can regain access to my account if I forget it.</textarea>
+    <div class="row">
+      <div>
+        <label for="language">Target language</label><br/>
+        <select id="language">
+          <option value="python">Python</option>
+          <option value="java">Java</option>
+          <option value="typescript">TypeScript</option>
+          <option value="javascript">JavaScript</option>
+          <option value="go">Go</option>
+          <option value="csharp">C#</option>
+        </select>
+      </div>
+      <div>
+        <label for="apiUrl">API base URL</label><br/>
+        <select id="apiUrl">
+          <option value="http://localhost:8000">http://localhost:8000</option>
+        </select>
+      </div>
+      <button class="primary" id="runBtn" onclick="runPipeline()">Run Pipeline</button>
+    </div>
+  </div>
+
+  <div class="pipeline" id="pipeline"></div>
+  <div id="errorBox"></div>
+  <div class="report" id="report" style="display:none;"></div>
+
+</div>
+
+<script>
+const STAGES = [
+  { key: 'requirement', title: '1. Requirement Agent', sub: 'Structures the raw story into testable requirements' },
+  { key: 'plan', title: '2. Planning Agent', sub: 'Drafts the implementation plan' },
+  { key: 'code', title: '3. Code Agent', sub: 'Generates source code' },
+  { key: 'tests', title: '4. Test Agent', sub: 'Generates and executes tests' },
+  { key: 'deployment', title: '5. Deployment Agent', sub: 'Prepares PR documentation' },
+];
+
+function renderPipelineSkeleton() {
+  const el = document.getElementById('pipeline');
+  el.innerHTML = STAGES.map(s => `
+    <div class="stage" id="stage-${s.key}">
+      <div class="stage-header" onclick="toggleStage('${s.key}')">
+        <div class="stage-dot" id="dot-${s.key}"></div>
+        <div>
+          <div class="stage-title">${s.title} <span id="badge-${s.key}"></span></div>
+          <div class="stage-sub">${s.sub}</div>
+        </div>
+      </div>
+      <div class="stage-body" id="body-${s.key}"><pre id="pre-${s.key}">Waiting...</pre></div>
+    </div>
+  `).join('');
+}
+
+function toggleStage(key) {
+  document.getElementById(`body-${key}`).classList.toggle('open');
+}
+
+function setDot(key, state) {
+  const dot = document.getElementById(`dot-${key}`);
+  dot.className = 'stage-dot ' + state;
+}
+
+function setContent(key, text) {
+  document.getElementById(`pre-${key}`).textContent = text;
+  document.getElementById(`body-${key}`).classList.add('open');
+}
+
+function setBadge(key, text, cls) {
+  document.getElementById(`badge-${key}`).innerHTML = `<span class="badge ${cls}">${text}</span>`;
+}
+
+async function runPipeline() {
+  const story = document.getElementById('story').value.trim();
+  const language = document.getElementById('language').value;
+  const apiUrl = document.getElementById('apiUrl').value;
+  const btn = document.getElementById('runBtn');
+  const errorBox = document.getElementById('errorBox');
+  const report = document.getElementById('report');
+
+  if (story.length < 10) {
+    alert('Please enter a real user story.');
+    return;
+  }
+
+  errorBox.innerHTML = '';
+  report.style.display = 'none';
+  renderPipelineSkeleton();
+  btn.disabled = true;
+  btn.textContent = 'Running...';
+
+  // Simulate progressive "running" state visually while we wait for the single API call
+  STAGES.forEach((s, i) => setTimeout(() => setDot(s.key, 'running'), i * 400));
+
+  try {
+    const resp = await fetch(`${apiUrl}/run`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_story: story, language: language }),
+    });
+
+    if (!resp.ok) {
+      const errData = await resp.json().catch(() => ({}));
+      throw new Error(errData.detail || `Request failed with status ${resp.status}`);
+    }
+
+    const data = await resp.json();
+    renderResult(data);
+
+  } catch (err) {
+    errorBox.innerHTML = `<div class="error-box"><strong>Pipeline failed:</strong> ${err.message}<br/><br/>
+      Check that the backend is running (uvicorn api.main:app) and that PORTKEY_API_KEY /
+      PORTKEY_VIRTUAL_KEY are set correctly in .env.</div>`;
+    STAGES.forEach(s => setDot(s.key, 'failed'));
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Run Pipeline';
+  }
+}
+
+function renderResult(data) {
+  setDot('requirement', 'done');
+  setContent('requirement', JSON.stringify(data.requirement, null, 2));
+
+  setDot('plan', 'done');
+  setContent('plan', JSON.stringify(data.plan, null, 2));
+
+  setDot('code', 'done');
+  setContent('code', `// ${data.code.filename}\n\n${data.code.code}`);
+
+  setDot('tests', data.tests.executed ? (data.tests.passed ? 'done' : 'failed') : 'done');
+  if (data.tests.executed) {
+    setBadge('tests', data.tests.passed ? 'PASSED' : 'FAILED', data.tests.passed ? 'pass' : 'fail');
+  } else {
+    setBadge('tests', 'NOT EXECUTED', 'skip');
+  }
+  setContent('tests',
+    `--- Test Code ---\n${data.tests.test_code}\n\n--- Output ---\n${data.tests.test_output || ''}\n\n--- Notes ---\n${data.tests.failure_reason || 'None'}`
+  );
+
+  setDot('deployment', 'done');
+  setContent('deployment', JSON.stringify(data.deployment, null, 2));
+
+  document.getElementById('report').style.display = 'block';
+  document.getElementById('report').innerHTML = `
+    <h3>Run Report</h3>
+    <div class="metrics">
+      <div class="metric"><div class="value">${data.elapsed_seconds}s</div><div class="label">Total pipeline time</div></div>
+      <div class="metric"><div class="value">${data.retry_count}</div><div class="label">Code retry attempts</div></div>
+      <div class="metric"><div class="value">${data.requirement.story_points}</div><div class="label">Estimated story points</div></div>
+      <div class="metric"><div class="value">${data.status}</div><div class="label">Final status</div></div>
+    </div>
+  `;
+}
+
+renderPipelineSkeleton();
+</script>
+
+</body>
+</html>
