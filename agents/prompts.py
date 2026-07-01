@@ -67,22 +67,12 @@ Rules:
 - Include brief inline comments explaining non-obvious logic.
 - If language is "python": the CORE LOGIC must be implemented as plain, framework-free functions
   and classes that can be imported and unit tested with zero setup (no running server, no app
-  context). This rule OVERRIDES anything the plan suggests about routes/APIs/web frameworks — even
-  if the plan lists a "routes" or "views" file, implement the underlying logic as plain functions
-  in the main module. You MAY additionally include a thin Flask/FastAPI wrapper around that logic
-  in the SAME file if it adds value, but the wrapper must be optional decoration: the plain
-  functions must work and be fully testable even if Flask were not installed. Prefer omitting the
-  web framework entirely unless the requirement is explicitly about an HTTP endpoint itself.
-- If language is "python" and the code defines simple data-holding classes (e.g. a Product,
-  User, or similar value object), use the @dataclass decorator (from dataclasses import dataclass)
-  rather than a plain class with a hand-written __init__. This ensures objects of that class have
-  correct equality comparison (==) out of the box, which test code will likely rely on — a plain
-  class without __eq__ will always fail equality assertions even when its field values match.
+  context). This rule OVERRIDES anything the plan suggests about routes/APIs/web frameworks.
+- If language is "python" and the code defines simple data-holding classes, use the @dataclass
+  decorator so equality comparison works correctly in tests.
 - If language is "python", the code must be a SINGLE, FULLY SELF-CONTAINED module with NO
-  imports from other project files (no "from auth.models import ...", no "from utils import ...").
-  Only these third-party libraries are available in the test sandbox: flask, flask-cors. Do not
-  import any other third-party library (no requests, django, sqlalchemy, pandas, etc.) — use only
-  the Python standard library plus flask/flask-cors if genuinely needed.
+  imports from other project files. Only flask and flask-cors are available as third-party
+  libraries; use only the Python standard library otherwise.
 - Output ONLY the JSON object — the "code" field must contain the COMPLETE file content."""
 
 
@@ -98,16 +88,13 @@ You MUST respond with ONLY a single valid JSON object matching exactly this sche
 }}
 
 Rules:
-- If language is "python": write tests using the built-in `unittest` module. The code under test
-  will ALWAYS be saved as a file named exactly "solution.py" in the same directory as your test
-  file, REGARDLESS of any filename, path, or module name mentioned anywhere in the plan or code
-  comments. Your test file MUST import using "from solution import <names>" or "import solution".
-  Do NOT import from any other path like "views.products" or "auth.models" — those paths do not
-  exist in the test environment, only solution.py exists. Cover the acceptance criteria and edge
-  cases given.
-- If language is anything else: write idiomatic tests using that language's standard/most
-  common testing framework (e.g. JUnit for Java, Jest for TypeScript), even though they will
-  not be auto-executed in this environment.
+- If language is "python": write tests using the built-in unittest module. The code under test
+  will ALWAYS be saved as solution.py in the same directory. Import ONLY using
+  "from solution import ..." or "import solution". Do NOT import from any other module path.
+  Write pure Python — no curly-brace code blocks, no JavaScript syntax. Every line must be
+  valid Python. Cover the acceptance criteria and edge cases given.
+- If language is anything else: write idiomatic tests using that language's standard testing
+  framework (e.g. JUnit for Java, Jest for TypeScript). These will not be auto-executed.
 - Output ONLY the JSON object."""
 
 

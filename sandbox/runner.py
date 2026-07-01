@@ -20,11 +20,8 @@ PYTHON_TIMEOUT_SECONDS = 15
 
 
 def run_python_tests(source_code: str, test_code: str) -> dict:
-    """
-    Writes source_code to solution.py and test_code to test_solution.py in a
-    temp directory, then runs the tests via `python -m unittest` as a
-    subprocess with a timeout. Returns a dict with passed/output/error.
-    """
+    import py_compile, tempfile, os, subprocess
+
     with tempfile.TemporaryDirectory() as tmpdir:
         solution_path = os.path.join(tmpdir, "solution.py")
         test_path = os.path.join(tmpdir, "test_solution.py")
@@ -33,6 +30,18 @@ def run_python_tests(source_code: str, test_code: str) -> dict:
             f.write(source_code)
         with open(test_path, "w") as f:
             f.write(test_code)
+
+        # Syntax-check the test file BEFORE trying to run it, so a SyntaxError
+        # produces a clean failure reason the Code/Test Agent can act on.
+        try:
+            py_compile.compile(test_path, doraise=True)
+        except py_compile.PyCompileError as e:
+            return {
+                "executed": True,
+                "passed": False,
+                "output": "",
+                "error": f"Generated test file has a Python syntax error and could not run: {e}",
+            }
 
         try:
             result = subprocess.run(
@@ -58,7 +67,6 @@ def run_python_tests(source_code: str, test_code: str) -> dict:
             "output": result.stdout,
             "error": "" if passed else result.stderr,
         }
-
 
 def run_tests(language: str, source_code: str, test_code: str) -> dict:
     """Dispatches to the right sandbox runner based on language."""
