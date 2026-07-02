@@ -2,322 +2,482 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AI-Driven SDLC Pipeline</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI SDLC Pipeline — Perficient</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
-  :root {
-    --bg: #0f1419;
-    --panel: #161d27;
-    --border: #263240;
-    --accent: #5dade2;
-    --green: #4caf78;
-    --red: #e57373;
-    --amber: #d9a441;
-    --text: #e6edf3;
-    --muted: #8b98a5;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  header {
-    padding: 24px 32px;
-    border-bottom: 1px solid var(--border);
-  }
-  header h1 { margin: 0 0 4px; font-size: 22px; }
-  header p { margin: 0; color: var(--muted); font-size: 14px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07090f;--s1:#0d1117;--s2:#161b24;--s3:#1e2633;
+  --bd:#252d3d;--bd2:#2e3a4e;
+  --accent:#6366f1;--accent2:#818cf8;--ag:rgba(99,102,241,.15);
+  --cyan:#22d3ee;--cd:rgba(34,211,238,.1);
+  --green:#34d399;--gd:rgba(52,211,153,.1);
+  --red:#f87171;--rd:rgba(248,113,113,.1);
+  --amber:#fbbf24;--ad:rgba(251,191,36,.1);
+  --purple:#a78bfa;--pd:rgba(167,139,250,.1);
+  --text:#e2e8f0;--sub:#8892a4;--muted:#4a5568;
+  --mono:'JetBrains Mono',monospace;--sans:'Inter',system-ui,sans-serif;--r:10px;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
 
-  .container { max-width: 1100px; margin: 0 auto; padding: 24px 32px 80px; }
+/* TOPBAR */
+.topbar{height:52px;display:flex;align-items:center;gap:12px;padding:0 20px;border-bottom:1px solid var(--bd);background:var(--s1);flex-shrink:0}
+.logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
+.topbar h1{font-size:14px;font-weight:600}
+.tag{font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--ag);color:var(--accent2);border:1px solid rgba(99,102,241,.3)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--sub)}
+.pdot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:gp 2s infinite}
+@keyframes gp{0%,100%{box-shadow:0 0 0 2px var(--gd)}50%{box-shadow:0 0 0 5px var(--gd)}}
 
-  .input-panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 28px;
-  }
-  textarea {
-    width: 100%;
-    min-height: 90px;
-    background: #0c1116;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    padding: 12px;
-    font-size: 14px;
-    resize: vertical;
-    font-family: inherit;
-  }
-  .row { display: flex; gap: 12px; margin-top: 12px; align-items: center; flex-wrap: wrap; }
-  select, button {
-    background: #0c1116;
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 10px 14px;
-    border-radius: 6px;
-    font-size: 14px;
-  }
-  button.primary {
-    background: var(--accent);
-    color: #06121c;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  button.primary:disabled { opacity: 0.5; cursor: not-allowed; }
-  label { font-size: 13px; color: var(--muted); }
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden}
 
-  .pipeline {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .stage {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .stage-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 18px;
-    cursor: pointer;
-  }
-  .stage-dot {
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--border);
-    flex-shrink: 0;
-  }
-  .stage-dot.running { background: var(--amber); animation: pulse 1s infinite; }
-  .stage-dot.done { background: var(--green); }
-  .stage-dot.failed { background: var(--red); }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+/* SIDEBAR */
+.sidebar{width:290px;flex-shrink:0;display:flex;flex-direction:column;background:var(--s1);border-right:1px solid var(--bd);overflow-y:auto}
+.sb-inner{padding:16px;display:flex;flex-direction:column;gap:16px}
+.lbl{display:block;font-size:10px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.story-ta{width:100%;min-height:100px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r);color:var(--text);font-family:var(--sans);font-size:12.5px;line-height:1.65;padding:9px 12px;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s}
+.story-ta:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ag)}
+.story-ta::placeholder{color:var(--muted)}
+.char-c{font-size:10px;color:var(--muted);text-align:right;margin-top:3px}
+.lang-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.lb{padding:7px 4px;border-radius:7px;border:1px solid var(--bd2);background:var(--s2);color:var(--sub);font-family:var(--sans);font-size:11px;font-weight:500;cursor:pointer;text-align:center;transition:all .12s}
+.lb:hover{border-color:var(--accent);color:var(--accent2);background:var(--ag)}
+.lb.active{background:var(--ag);border-color:var(--accent);color:var(--accent2);font-weight:600}
+.url-wrap{position:relative}
+.url-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted)}
+.url-inp{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:10.5px;padding:8px 10px 8px 28px;outline:none;transition:border-color .15s}
+.url-inp:focus{border-color:var(--accent)}
+.run-btn{width:100%;padding:11px;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 18px rgba(99,102,241,.35);transition:opacity .15s,transform .1s}
+.run-btn:hover{opacity:.88;transform:translateY(-1px)}
+.run-btn:active{transform:translateY(0)}
+.run-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.tip{background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:11px 12px;font-size:11.5px;color:var(--sub);line-height:1.6}
+.tip strong{color:var(--accent2);font-weight:600}
+.sep{height:1px;background:var(--bd);margin:2px 0}
+.hist-item{padding:9px 11px;border-radius:8px;border:1px solid var(--bd);background:var(--s2);font-size:11px;color:var(--sub);line-height:1.4;cursor:pointer;transition:all .12s;margin-bottom:5px}
+.hist-item:hover{border-color:var(--bd2);color:var(--text)}
+.hs{font-size:10px;margin-top:3px;font-weight:500}
+.hp{color:var(--green)}.hf{color:var(--red)}
+.no-hist{font-size:11.5px;color:var(--muted)}
 
-  .stage-title { font-weight: 600; flex-grow: 1; }
-  .stage-sub { color: var(--muted); font-size: 13px; }
-  .stage-body {
-    display: none;
-    padding: 0 18px 18px;
-    border-top: 1px solid var(--border);
-  }
-  .stage-body.open { display: block; }
-  .stage-body pre {
-    background: #0c1116;
-    padding: 12px;
-    border-radius: 6px;
-    overflow-x: auto;
-    font-size: 12.5px;
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-  .badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    margin-left: 8px;
-  }
-  .badge.pass { background: rgba(76,175,120,0.15); color: var(--green); }
-  .badge.fail { background: rgba(229,115,115,0.15); color: var(--red); }
-  .badge.skip { background: rgba(217,164,65,0.15); color: var(--amber); }
+/* CANVAS */
+.canvas{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:40px}
+.empty-icon{width:60px;height:60px;border-radius:16px;background:var(--s2);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:26px}
+.empty-title{font-size:16px;font-weight:600}
+.empty-sub{font-size:13px;color:var(--sub);max-width:300px;line-height:1.6}
+.ex-btn{display:block;width:100%;max-width:400px;padding:9px 13px;background:var(--s2);border:1px solid var(--bd2);border-radius:8px;color:var(--sub);font-size:11.5px;font-family:var(--sans);cursor:pointer;text-align:left;transition:all .12s;margin-top:5px;line-height:1.4}
+.ex-btn:hover{border-color:var(--accent);color:var(--text);background:var(--ag)}
 
-  .report {
-    margin-top: 24px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-  }
-  .report h3 { margin-top: 0; }
-  .metrics { display: flex; gap: 24px; flex-wrap: wrap; }
-  .metric { min-width: 140px; }
-  .metric .value { font-size: 24px; font-weight: 700; color: var(--accent); }
-  .metric .label { font-size: 12px; color: var(--muted); }
+/* RUN HEADER */
+.run-hdr{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.run-icon{width:38px;height:38px;border-radius:10px;flex-shrink:0;background:var(--ag);border:1px solid rgba(99,102,241,.3);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--accent2)}
+.run-title{font-size:14px;font-weight:600}
+.run-sub{font-size:11.5px;color:var(--sub);margin-top:2px}
+.rbadge{margin-left:auto;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;letter-spacing:.02em}
+.rb-run{background:var(--ad);color:var(--amber);border:1px solid rgba(251,191,36,.2)}
+.rb-ok{background:var(--gd);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+.rb-fail{background:var(--rd);color:var(--red);border:1px solid rgba(248,113,113,.2)}
 
-  .error-box {
-    background: rgba(229,115,115,0.1);
-    border: 1px solid var(--red);
-    color: var(--red);
-    padding: 14px;
-    border-radius: 8px;
-    margin-top: 16px;
-    font-size: 14px;
-  }
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mc{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
+.mc-val{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.mc-lbl{font-size:10.5px;color:var(--muted);margin-top:3px}
+.ca{color:var(--accent2)}.cc{color:var(--cyan)}.cg{color:var(--green)}.cp{color:var(--purple)}
+
+/* PIPELINE */
+.pipeline{display:flex;gap:0;position:relative}
+.spine-rail{width:2px;background:var(--bd2);border-radius:2px;margin:20px 19px;position:relative;flex-shrink:0}
+.spine-fill{position:absolute;top:0;left:0;width:100%;background:linear-gradient(180deg,var(--accent),var(--cyan));border-radius:2px;transition:height .6s cubic-bezier(.4,0,.2,1)}
+.stages{flex:1;display:flex;flex-direction:column;gap:8px}
+.stage{background:var(--s1);border:1px solid var(--bd);border-radius:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.stage.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--ag)}
+.stage.done{border-color:rgba(52,211,153,.25)}
+.stage.failed{border-color:rgba(248,113,113,.25)}
+.stage-hdr{display:flex;align-items:center;gap:12px;padding:13px 15px;cursor:pointer;transition:background .12s}
+.stage-hdr:hover{background:rgba(255,255,255,.02)}
+.sdot{width:10px;height:10px;border-radius:50%;flex-shrink:0;background:var(--bd2);transition:all .3s}
+.sdot.idle{background:var(--bd2)}
+.sdot.running{background:var(--amber);box-shadow:0 0 0 3px var(--ad);animation:rp 1.3s infinite}
+.sdot.done{background:var(--green);box-shadow:0 0 0 3px var(--gd)}
+.sdot.failed{background:var(--red);box-shadow:0 0 0 3px var(--rd)}
+@keyframes rp{0%,100%{box-shadow:0 0 0 3px var(--ad)}50%{box-shadow:0 0 0 7px var(--ad)}}
+.snum{width:24px;height:24px;border-radius:6px;background:var(--s3);border:1px solid var(--bd2);font-size:10px;font-weight:700;color:var(--sub);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sinfo{flex:1}
+.sname{font-size:13px;font-weight:600}
+.sdesc{font-size:11px;color:var(--sub);margin-top:1px}
+.sbadge{font-size:10px;font-weight:600;padding:3px 7px;border-radius:5px}
+.sb-run{background:var(--ad);color:var(--amber)}
+.sb-ok{background:var(--gd);color:var(--green)}
+.sb-fail{background:var(--rd);color:var(--red)}
+.sb-gen{background:var(--cd);color:var(--cyan)}
+.chev{font-size:13px;color:var(--muted);transition:transform .2s}
+.chev.open{transform:rotate(180deg)}
+
+/* STAGE BODY */
+.stage-body{border-top:1px solid var(--bd);max-height:0;overflow:hidden;opacity:0;transition:max-height .35s ease,opacity .25s}
+.stage-body.open{max-height:700px;opacity:1;overflow-y:auto}
+.tab-bar{display:flex;padding:0 14px;background:var(--s2);border-bottom:1px solid var(--bd);gap:2px}
+.tab{padding:8px 12px;font-size:11.5px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .12s,border-color .12s}
+.tab.active{color:var(--accent2);border-color:var(--accent)}
+.tab-panel{display:none;padding:14px}
+.tab-panel.active{display:block}
+
+/* CODE */
+.code-wrap{background:var(--s2);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
+.code-bar{display:flex;align-items:center;padding:7px 11px;border-bottom:1px solid var(--bd);gap:6px}
+.cd{width:9px;height:9px;border-radius:50%}.cd1{background:#ff5f57}.cd2{background:#febc2e}.cd3{background:#28c840}
+.clang{font-size:10px;color:var(--muted);margin-left:auto;font-family:var(--mono)}
+.code-body{padding:12px 14px;font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--text);white-space:pre-wrap;word-break:break-word;max-height:280px;overflow-y:auto}
+.jk{color:var(--accent2)}.js{color:var(--green)}.jn{color:var(--amber)}.jb{color:var(--purple)}
+
+/* CRITERIA LIST */
+.clist{list-style:none;display:flex;flex-direction:column;gap:5px}
+.clist li{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.6;padding:7px 10px;border-radius:7px;background:var(--s3);color:var(--text)}
+.cbullet{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.cb-a{background:var(--accent2)}.cb-am{background:var(--amber)}.cb-g{background:var(--green)}
+
+/* ── DOWNLOAD SECTION ── */
+.dl-section{background:var(--s3);border:1px solid var(--bd2);border-radius:10px;padding:14px;margin-bottom:12px}
+.dl-title{font-size:11.5px;font-weight:600;color:var(--sub);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dl-btn{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:12px 8px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--bd2);background:var(--s2);
+  font-family:var(--sans);transition:all .15s;text-decoration:none;color:inherit;
+}
+.dl-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.dl-btn.smoke:hover{border-color:var(--amber);background:var(--ad)}
+.dl-btn.regression:hover{border-color:var(--red);background:var(--rd)}
+.dl-btn.primary:hover{border-color:var(--accent);background:var(--ag)}
+.dl-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.smoke .dl-icon{background:var(--ad);color:var(--amber)}
+.regression .dl-icon{background:var(--rd);color:var(--red)}
+.primary .dl-icon{background:var(--ag);color:var(--accent2)}
+.dl-name{font-size:11.5px;font-weight:600;text-align:center}
+.smoke .dl-name{color:var(--amber)}.regression .dl-name{color:var(--red)}.primary .dl-name{color:var(--accent2)}
+.dl-sub{font-size:10px;color:var(--muted);text-align:center;line-height:1.4}
+.dl-count{font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;margin-top:2px}
+.smoke .dl-count{background:var(--ad);color:var(--amber)}
+.regression .dl-count{background:var(--rd);color:var(--red)}
+.primary .dl-count{background:var(--ag);color:var(--accent2)}
+
+/* TEST BANNER */
+.test-banner{display:flex;align-items:center;gap:9px;padding:10px 13px;border-radius:8px;font-size:12.5px;font-weight:600;margin-bottom:10px}
+.tb-pass{background:var(--gd);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+.tb-fail{background:var(--rd);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.tb-gen{background:var(--cd);color:var(--cyan);border:1px solid rgba(34,211,238,.2)}
+
+/* PR */
+.pr-card{background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:14px}
+.pr-title{font-size:13px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.pr-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:var(--pd);color:var(--purple)}
+.pr-desc{font-size:11.5px;color:var(--sub);line-height:1.75;white-space:pre-wrap}
+.pr-log{margin-top:10px;padding-top:10px;border-top:1px solid var(--bd);font-size:10.5px;color:var(--muted);font-family:var(--mono)}
+
+/* ERROR */
+.err{background:var(--rd);border:1px solid rgba(248,113,113,.25);border-radius:10px;padding:13px 15px;font-size:12.5px;color:var(--red);display:flex;gap:10px}
+.err code{font-family:var(--mono);font-size:10.5px;opacity:.8}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>AI-Driven SDLC Pipeline</h1>
-  <p>Requirement → Planning → Code → Test → Deployment, powered by Claude via Portkey</p>
-</header>
+<div class="topbar">
+  <div class="logo"><i class="ti ti-arrows-right-left"></i></div>
+  <h1>AI SDLC Pipeline</h1>
+  <span class="tag">Perficient</span>
+  <div class="topbar-right"><div class="pdot"></div>Claude · Portkey Gateway</div>
+</div>
 
-<div class="container">
-
-  <div class="input-panel">
-    <label for="story">User story / feature idea</label>
-    <textarea id="story" placeholder="As a user, I want to reset my password via email so that I can regain access to my account if I forget it.">As a user, I want to reset my password via email so that I can regain access to my account if I forget it.</textarea>
-    <div class="row">
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-inner">
       <div>
-        <label for="language">Target language</label><br/>
-        <select id="language">
-          <option value="python">Python</option>
-          <option value="java">Java</option>
-          <option value="typescript">TypeScript</option>
-          <option value="javascript">JavaScript</option>
-          <option value="go">Go</option>
-          <option value="csharp">C#</option>
-        </select>
+        <label class="lbl">User story</label>
+        <textarea class="story-ta" id="story" oninput="upChar(this)" placeholder="As a user, I want to…">As a user, I want to filter products by price range so I can find items within my budget.</textarea>
+        <div class="char-c" id="charC">86 characters</div>
       </div>
       <div>
-        <label for="apiUrl">API base URL</label><br/>
-        <select id="apiUrl">
-          <option value="http://localhost:8000">http://localhost:8000</option>
-        </select>
+        <label class="lbl">Target language</label>
+        <div class="lang-grid" id="langGrid">
+          <button class="lb active" data-lang="python">Python</button>
+          <button class="lb" data-lang="java">Java</button>
+          <button class="lb" data-lang="typescript">TypeScript</button>
+          <button class="lb" data-lang="javascript">JavaScript</button>
+          <button class="lb" data-lang="go">Go</button>
+          <button class="lb" data-lang="csharp">C#</button>
+        </div>
       </div>
-      <button class="primary" id="runBtn" onclick="runPipeline()">Run Pipeline</button>
+      <div>
+        <label class="lbl">Backend API</label>
+        <div class="url-wrap">
+          <i class="ti ti-link url-icon"></i>
+          <input class="url-inp" id="apiUrl" value="http://localhost:8000">
+        </div>
+      </div>
+      <button class="run-btn" id="runBtn" onclick="runPipeline()">
+        <i class="ti ti-player-play"></i> Run pipeline
+      </button>
+      <div class="tip"><strong>Tip:</strong> Pick a self-contained feature — the agent self-corrects code if tests fail, then downloads smoke &amp; regression suites automatically.</div>
+      <div class="sep"></div>
+      <div>
+        <label class="lbl">Run history</label>
+        <div id="histList"><div class="no-hist">No runs yet.</div></div>
+      </div>
     </div>
-  </div>
+  </aside>
 
-  <div class="pipeline" id="pipeline"></div>
-  <div id="errorBox"></div>
-  <div class="report" id="report" style="display:none;"></div>
-
+  <main class="canvas" id="canvas">
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon"><i class="ti ti-test-pipe" style="color:var(--accent2)"></i></div>
+      <div class="empty-title">Ready to generate</div>
+      <div class="empty-sub">Enter a user story, pick a language, and run all 5 agents — smoke &amp; regression tests auto-download when complete.</div>
+      <div style="font-size:11.5px;color:var(--sub);margin-top:4px">Quick examples:</div>
+      <button class="ex-btn" onclick="use(this)">As a user, I want to validate email addresses so invalid emails are rejected at signup.</button>
+      <button class="ex-btn" onclick="use(this)">As a user, I want to calculate cart total with tax so I know my final checkout price.</button>
+      <button class="ex-btn" onclick="use(this)">As an admin, I want to search users by name or email so I can quickly find any account.</button>
+    </div>
+  </main>
 </div>
 
 <script>
-const STAGES = [
-  { key: 'requirement', title: '1. Requirement Agent', sub: 'Structures the raw story into testable requirements' },
-  { key: 'plan', title: '2. Planning Agent', sub: 'Drafts the implementation plan' },
-  { key: 'code', title: '3. Code Agent', sub: 'Generates source code' },
-  { key: 'tests', title: '4. Test Agent', sub: 'Generates and executes tests' },
-  { key: 'deployment', title: '5. Deployment Agent', sub: 'Prepares PR documentation' },
+const STAGES=[
+  {key:'requirement',title:'Requirement agent',desc:'Structures story into acceptance criteria and edge cases',num:'01'},
+  {key:'plan',title:'Planning agent',desc:'Produces architecture, files, and function signatures',num:'02'},
+  {key:'code',title:'Code agent',desc:'Generates source code; retries automatically on test failure',num:'03'},
+  {key:'tests',title:'Test agent',desc:'Generates smoke & regression suites, executes in sandbox',num:'04'},
+  {key:'deployment',title:'Deployment agent',desc:'Produces PR title, description, and changelog entry',num:'05'},
 ];
 
-function renderPipelineSkeleton() {
-  const el = document.getElementById('pipeline');
-  el.innerHTML = STAGES.map(s => `
-    <div class="stage" id="stage-${s.key}">
-      <div class="stage-header" onclick="toggleStage('${s.key}')">
-        <div class="stage-dot" id="dot-${s.key}"></div>
-        <div>
-          <div class="stage-title">${s.title} <span id="badge-${s.key}"></span></div>
-          <div class="stage-sub">${s.sub}</div>
-        </div>
-      </div>
-      <div class="stage-body" id="body-${s.key}"><pre id="pre-${s.key}">Waiting...</pre></div>
+let lang='python', hist=[], lastRunId=null, lastApiUrl='http://localhost:8000';
+
+document.querySelectorAll('.lb').forEach(b=>{
+  b.onclick=()=>{lang=b.dataset.lang;document.querySelectorAll('.lb').forEach(x=>x.classList.remove('active'));b.classList.add('active')};
+});
+
+function upChar(el){const c=document.getElementById('charC');if(c)c.textContent=`${el.value.length} characters`}
+function use(btn){const t=document.getElementById('story');t.value=btn.textContent.trim();upChar(t);t.focus()}
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function jsonHl(obj){
+  return JSON.stringify(obj,null,2)
+    .replace(/"([^"]+)":/g,'<span class="jk">"$1"</span>:')
+    .replace(/: "([^"]*)"/g,': <span class="js">"$1"</span>')
+    .replace(/: (\d+\.?\d*)/g,': <span class="jn">$1</span>')
+    .replace(/: (true|false)/g,': <span class="jb">$1</span>');
+}
+function codeBlk(txt,lang=''){return`<div class="code-wrap"><div class="code-bar"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div><span class="clang">${esc(lang)}</span></div><div class="code-body">${esc(txt||'—')}</div></div>`}
+function jsonBlk(obj,l='json'){return`<div class="code-wrap"><div class="code-bar"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div><span class="clang">${l}</span></div><div class="code-body">${jsonHl(obj)}</div></div>`}
+function clist(arr,col='a'){return`<ul class="clist">${(arr||[]).map(c=>`<li><div class="cbullet cb-${col}"></div>${esc(c)}</li>`).join('')}</ul>`}
+
+function countTests(code,prefix){
+  if(!code) return 0;
+  return (code.match(new RegExp(`def ${prefix}_`,'g'))||[]).length;
+}
+
+function dlSection(runId,apiUrl){
+  return`<div class="dl-section">
+    <div class="dl-title"><i class="ti ti-download"></i>Download test suites</div>
+    <div class="dl-grid">
+      <a class="dl-btn smoke" href="${apiUrl}/download/${runId}/smoke" download>
+        <div class="dl-icon"><i class="ti ti-flame"></i></div>
+        <div class="dl-name">Smoke Tests</div>
+        <div class="dl-sub">Happy-path coverage<br>Fast &amp; essential</div>
+        <span class="dl-count" id="smoke-count">3-6 tests</span>
+      </a>
+      <a class="dl-btn regression" href="${apiUrl}/download/${runId}/regression" download>
+        <div class="dl-icon"><i class="ti ti-bug"></i></div>
+        <div class="dl-name">Regression Tests</div>
+        <div class="dl-sub">Full edge case coverage<br>Prevents regressions</div>
+        <span class="dl-count" id="reg-count">10-20 tests</span>
+      </a>
+      <a class="dl-btn primary" href="${apiUrl}/download/${runId}/primary" download>
+        <div class="dl-icon"><i class="ti ti-code"></i></div>
+        <div class="dl-name">Primary Suite</div>
+        <div class="dl-sub">Executed in sandbox<br>Used for retry loop</div>
+        <span class="dl-count" id="pri-count">Full suite</span>
+      </a>
     </div>
-  `).join('');
+  </div>`;
 }
 
-function toggleStage(key) {
-  document.getElementById(`body-${key}`).classList.toggle('open');
-}
-
-function setDot(key, state) {
-  const dot = document.getElementById(`dot-${key}`);
-  dot.className = 'stage-dot ' + state;
-}
-
-function setContent(key, text) {
-  document.getElementById(`pre-${key}`).textContent = text;
-  document.getElementById(`body-${key}`).classList.add('open');
-}
-
-function setBadge(key, text, cls) {
-  document.getElementById(`badge-${key}`).innerHTML = `<span class="badge ${cls}">${text}</span>`;
-}
-
-async function runPipeline() {
-  const story = document.getElementById('story').value.trim();
-  const language = document.getElementById('language').value;
-  const apiUrl = document.getElementById('apiUrl').value;
-  const btn = document.getElementById('runBtn');
-  const errorBox = document.getElementById('errorBox');
-  const report = document.getElementById('report');
-
-  if (story.length < 10) {
-    alert('Please enter a real user story.');
-    return;
-  }
-
-  errorBox.innerHTML = '';
-  report.style.display = 'none';
-  renderPipelineSkeleton();
-  btn.disabled = true;
-  btn.textContent = 'Running...';
-
-  // Simulate progressive "running" state visually while we wait for the single API call
-  STAGES.forEach((s, i) => setTimeout(() => setDot(s.key, 'running'), i * 400));
-
-  try {
-    const resp = await fetch(`${apiUrl}/run`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_story: story, language: language }),
-    });
-
-    if (!resp.ok) {
-      const errData = await resp.json().catch(() => ({}));
-      throw new Error(errData.detail || `Request failed with status ${resp.status}`);
-    }
-
-    const data = await resp.json();
-    renderResult(data);
-
-  } catch (err) {
-    errorBox.innerHTML = `<div class="error-box"><strong>Pipeline failed:</strong> ${err.message}<br/><br/>
-      Check that the backend is running (uvicorn api.main:app) and that PORTKEY_API_KEY /
-      PORTKEY_VIRTUAL_KEY are set correctly in .env.</div>`;
-    STAGES.forEach(s => setDot(s.key, 'failed'));
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Run Pipeline';
-  }
-}
-
-function renderResult(data) {
-  setDot('requirement', 'done');
-  setContent('requirement', JSON.stringify(data.requirement, null, 2));
-
-  setDot('plan', 'done');
-  setContent('plan', JSON.stringify(data.plan, null, 2));
-
-  setDot('code', 'done');
-  setContent('code', `// ${data.code.filename}\n\n${data.code.code}`);
-
-  setDot('tests', data.tests.executed ? (data.tests.passed ? 'done' : 'failed') : 'done');
-  if (data.tests.executed) {
-    setBadge('tests', data.tests.passed ? 'PASSED' : 'FAILED', data.tests.passed ? 'pass' : 'fail');
-  } else {
-    setBadge('tests', 'NOT EXECUTED', 'skip');
-  }
-  setContent('tests',
-    `--- Test Code ---\n${data.tests.test_code}\n\n--- Output ---\n${data.tests.test_output || ''}\n\n--- Notes ---\n${data.tests.failure_reason || 'None'}`
-  );
-
-  setDot('deployment', 'done');
-  setContent('deployment', JSON.stringify(data.deployment, null, 2));
-
-  document.getElementById('report').style.display = 'block';
-  document.getElementById('report').innerHTML = `
-    <h3>Run Report</h3>
+function buildLayout(){
+  document.getElementById('canvas').innerHTML=`
+    <div class="run-hdr" id="runHdr">
+      <div class="run-icon"><i class="ti ti-arrows-right-left"></i></div>
+      <div><div class="run-title">Pipeline run</div><div class="run-sub" id="runSub">Agents starting…</div></div>
+      <span class="rbadge rb-run" id="runBadge">Running</span>
+    </div>
     <div class="metrics">
-      <div class="metric"><div class="value">${data.elapsed_seconds}s</div><div class="label">Total pipeline time</div></div>
-      <div class="metric"><div class="value">${data.retry_count}</div><div class="label">Code retry attempts</div></div>
-      <div class="metric"><div class="value">${data.requirement.story_points}</div><div class="label">Estimated story points</div></div>
-      <div class="metric"><div class="value">${data.status}</div><div class="label">Final status</div></div>
+      <div class="mc"><div class="mc-val ca" id="mTime">—</div><div class="mc-lbl">Elapsed (s)</div></div>
+      <div class="mc"><div class="mc-val cc" id="mRetry">—</div><div class="mc-lbl">Code retries</div></div>
+      <div class="mc"><div class="mc-val cg" id="mPts">—</div><div class="mc-lbl">Story points</div></div>
+      <div class="mc"><div class="mc-val cp" id="mStat">—</div><div class="mc-lbl">Status</div></div>
     </div>
-  `;
+    <div class="pipeline">
+      <div class="spine-rail"><div class="spine-fill" id="spineF" style="height:0%"></div></div>
+      <div class="stages" id="stagesEl"></div>
+    </div>`;
+  const sl=document.getElementById('stagesEl');
+  STAGES.forEach(s=>{
+    const d=document.createElement('div');
+    d.className='stage';d.id=`sc-${s.key}`;
+    d.innerHTML=`
+      <div class="stage-hdr" onclick="tog('${s.key}')">
+        <div class="sdot idle" id="dot-${s.key}"></div>
+        <div class="snum">${s.num}</div>
+        <div class="sinfo"><div class="sname">${s.title} <span id="badge-${s.key}"></span></div><div class="sdesc">${s.desc}</div></div>
+        <i class="ti ti-chevron-down chev" id="chev-${s.key}"></i>
+      </div>
+      <div class="stage-body" id="body-${s.key}">
+        <div class="tab-bar" id="tabs-${s.key}"></div>
+        <div id="panels-${s.key}"></div>
+      </div>`;
+    sl.appendChild(d);
+  });
 }
 
-renderPipelineSkeleton();
-</script>
+function tog(key){document.getElementById(`body-${key}`)?.classList.toggle('open');document.getElementById(`chev-${key}`)?.classList.toggle('open')}
+function openS(key){
+  document.getElementById(`sc-${key}`)?.classList.add('active');
+  const b=document.getElementById(`body-${key}`);const c=document.getElementById(`chev-${key}`);
+  if(b&&!b.classList.contains('open'))b.classList.add('open');
+  if(c&&!c.classList.contains('open'))c.classList.add('open');
+}
+function dot(key,state){
+  const e=document.getElementById(`dot-${key}`);if(e)e.className=`sdot ${state}`;
+  const sc=document.getElementById(`sc-${key}`);
+  if(sc)sc.className='stage'+(state==='done'?' done':state==='failed'?' failed':state==='running'?' active':'');
+}
+function badge(key,html){const e=document.getElementById(`badge-${key}`);if(e)e.innerHTML=html}
+function spine(n){const p=document.getElementById('spineF');if(p)p.style.height=(n/STAGES.length*100)+'%'}
 
+function setTabs(key,panels){
+  const tb=document.getElementById(`tabs-${key}`);const pw=document.getElementById(`panels-${key}`);
+  if(!tb||!pw)return;tb.innerHTML='';pw.innerHTML='';
+  panels.forEach((p,i)=>{
+    const t=document.createElement('div');t.className=`tab${i===0?' active':''}`;t.textContent=p.label;
+    t.onclick=()=>{tb.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));pw.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));t.classList.add('active');pw.children[i].classList.add('active')};
+    tb.appendChild(t);
+    const pan=document.createElement('div');pan.className=`tab-panel${i===0?' active':''}`;pan.innerHTML=p.content;pw.appendChild(pan);
+  });
+}
+
+function renderResult(data){
+  const apiUrl=document.getElementById('apiUrl').value.trim()||'http://localhost:8000';
+  lastApiUrl=apiUrl; lastRunId=data.run_id;
+
+  const sub=document.getElementById('runSub');const rb=document.getElementById('runBadge');
+  if(sub)sub.textContent=`Finished in ${data.elapsed_seconds}s · ${data.retry_count} retr${data.retry_count!==1?'ies':'y'}`;
+  if(rb){rb.textContent=data.status==='success'?'Complete':'Review needed';rb.className=`rbadge ${data.status==='success'?'rb-ok':'rb-fail'}`}
+  document.getElementById('mTime').textContent=data.elapsed_seconds;
+  document.getElementById('mRetry').textContent=data.retry_count;
+  document.getElementById('mPts').textContent=data.requirement?.story_points??'—';
+  document.getElementById('mStat').textContent=data.status==='success'?'✓ Passed':'⚠ Review';
+
+  // REQUIREMENT
+  dot('requirement','done');
+  setTabs('requirement',[
+    {label:'Criteria',content:clist(data.requirement.acceptance_criteria,'a')},
+    {label:'Edge cases',content:clist(data.requirement.edge_cases,'am')},
+    {label:'JSON',content:jsonBlk(data.requirement,'requirement.json')},
+  ]);openS('requirement');
+
+  // PLAN
+  dot('plan','done');
+  setTabs('plan',[
+    {label:'Architecture',content:`<p style="font-size:12.5px;line-height:1.75">${esc(data.plan.architectural_rationale)}</p>`},
+    {label:'Files',content:`<ul class="clist">${(data.plan.files_to_create_or_modify||[]).map(f=>`<li><div class="cbullet cb-a"></div><code style="font-family:var(--mono);font-size:11px;color:var(--accent2)">${esc(f)}</code></li>`).join('')}</ul>`},
+    {label:'Signatures',content:`<ul class="clist">${(data.plan.function_or_class_signatures||[]).map(f=>`<li><div class="cbullet cb-a"></div><code style="font-family:var(--mono);font-size:11px">${esc(f)}</code></li>`).join('')}</ul>`},
+    {label:'JSON',content:jsonBlk(data.plan,'plan.json')},
+  ]);
+
+  // CODE
+  dot('code','done');
+  setTabs('code',[
+    {label:'Source code',content:codeBlk(data.code.code,data.code.language)},
+    {label:'Summary',content:`<p style="font-size:12.5px;line-height:1.75">${esc(data.code.summary)}</p>`},
+    {label:'Assumptions',content:data.code.assumptions?.length?clist(data.code.assumptions,'am'):'<p style="font-size:12.5px;color:var(--sub)">None noted.</p>'},
+  ]);
+
+  // TESTS — with download buttons
+  const t=data.tests;
+  const tState=t.executed?(t.passed?'done':'failed'):'done';
+  dot('tests',tState);
+  if(t.executed)badge('tests',t.passed?'<span class="sbadge sb-ok">Passed</span>':'<span class="sbadge sb-fail">Failed</span>');
+  else badge('tests','<span class="sbadge sb-gen">Generated</span>');
+
+  const smokeCount=countTests(t.smoke_test_code,'test_smoke');
+  const regCount=countTests(t.regression_test_code,'test_reg');
+  const priCount=countTests(t.test_code,'test');
+
+  const banner=t.executed
+    ?`<div class="test-banner ${t.passed?'tb-pass':'tb-fail'}"><i class="ti ti-${t.passed?'check':'x'}"></i>${t.passed?'All tests passed — code is verified':'Tests failed; code was retried automatically'}</div>`
+    :`<div class="test-banner tb-gen"><i class="ti ti-info-circle"></i>Tests generated — auto-execution not supported for this language</div>`;
+
+  const dl=dlSection(data.run_id,apiUrl);
+
+  setTabs('tests',[
+    {label:'Downloads',content:dl+banner+codeBlk(t.test_output||t.failure_reason||'No output.','execution output')},
+    {label:'Smoke tests',content:codeBlk(t.smoke_test_code||'# Not available','smoke tests')},
+    {label:'Regression',content:codeBlk(t.regression_test_code||'# Not available','regression tests')},
+    {label:'Primary suite',content:codeBlk(t.test_code,'primary tests')},
+  ]);
+
+  // Update counts
+  setTimeout(()=>{
+    const sc=document.getElementById('smoke-count');if(sc&&smokeCount>0)sc.textContent=`${smokeCount} test${smokeCount!==1?'s':''}`;
+    const rc=document.getElementById('reg-count');if(rc&&regCount>0)rc.textContent=`${regCount} test${regCount!==1?'s':''}`;
+    const pc=document.getElementById('pri-count');if(pc&&priCount>0)pc.textContent=`${priCount} test${priCount!==1?'s':''}`;
+  },200);
+
+  openS('tests');
+
+  // DEPLOYMENT
+  dot('deployment','done');
+  const d=data.deployment;
+  setTabs('deployment',[
+    {label:'PR draft',content:`<div class="pr-card"><div class="pr-title"><i class="ti ti-git-pull-request" style="color:var(--accent2)"></i>${esc(d.pr_title)}<span class="pr-tag">draft</span></div><div class="pr-desc">${esc(d.pr_description)}</div><div class="pr-log">${esc(d.changelog_entry)}</div></div>`},
+    {label:'JSON',content:jsonBlk(d,'deployment.json')},
+  ]);
+
+  spine(5);
+  addHist(document.getElementById('story').value.trim().slice(0,55)+'…',data.status);
+}
+
+function addHist(title,status){
+  hist.unshift({title,status});
+  const el=document.getElementById('histList');
+  el.innerHTML=hist.slice(0,5).map(h=>`<div class="hist-item"><div>${esc(h.title)}</div><div class="hs ${h.status==='success'?'hp':'hf'}">${h.status==='success'?'✓ passed':'⚠ review'}</div></div>`).join('');
+}
+
+async function runPipeline(){
+  const story=document.getElementById('story').value.trim();
+  const apiUrl=document.getElementById('apiUrl').value.trim()||'http://localhost:8000';
+  const btn=document.getElementById('runBtn');
+  if(story.length<10){alert('Enter a user story first.');return;}
+  buildLayout();
+  btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Running…';
+  STAGES.forEach((s,i)=>{setTimeout(()=>{dot(s.key,'running');badge(s.key,'<span class="sbadge sb-run">Running</span>');spine(i)},i*420)});
+  try{
+    const resp=await fetch(`${apiUrl}/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_story:story,language:lang})});
+    if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.detail||`HTTP ${resp.status}`);}
+    renderResult(await resp.json());
+  }catch(err){
+    const eb=document.createElement('div');eb.className='err';
+    eb.innerHTML=`<i class="ti ti-alert-triangle" style="flex-shrink:0;margin-top:1px"></i><div><strong>Pipeline failed</strong> — ${esc(err.message)}<br><code>Start backend: uvicorn api.main:app --reload --port 8000</code></div>`;
+    document.getElementById('canvas').appendChild(eb);
+    STAGES.forEach(s=>dot(s.key,'idle'));
+  }finally{
+    btn.disabled=false;btn.innerHTML='<i class="ti ti-player-play"></i> Run pipeline';
+  }
+}
+</script>
 </body>
 </html>
