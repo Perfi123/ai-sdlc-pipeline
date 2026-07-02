@@ -95,6 +95,16 @@ Rules:
   valid Python. Cover the acceptance criteria and edge cases given.
 - If language is anything else: write idiomatic tests using that language's standard testing
   framework (e.g. JUnit for Java, Jest for TypeScript). These will not be auto-executed.
+  - NEVER use threads, multiprocessing, asyncio, or any concurrency primitives in tests. If an
+  edge case mentions "concurrent users" or "simultaneous requests", simulate it by calling the
+  function multiple times sequentially in a single test method — do NOT use threading.Thread or
+  any parallel execution. Thread exceptions do not propagate to the unittest runner and cause
+  false failures.
+- NEVER import: threading, multiprocessing, asyncio, concurrent.futures, subprocess, socket,
+  or any module that requires network access or spawns processes.
+  - NEVER use threads, multiprocessing, asyncio, or any concurrency primitives in tests.
+  If an edge case mentions "concurrent users", simulate it by calling the function multiple times
+  sequentially — do NOT use threading.Thread or any parallel execution.
 - Output ONLY the JSON object."""
 
 
