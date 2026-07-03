@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI SDLC Pipeline — Perficient</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -12,7 +11,7 @@
 :root{
   --bg:#07090f;--s1:#0d1117;--s2:#161b24;--s3:#1e2633;
   --bd:#252d3d;--bd2:#2e3a4e;
-  --accent:#6366f1;--accent2:#818cf8;--ag:rgba(99,102,241,.15);
+  --accent:#6366f1;--a2:#818cf8;--ag:rgba(99,102,241,.15);
   --cyan:#22d3ee;--cd:rgba(34,211,238,.1);
   --green:#34d399;--gd:rgba(52,211,153,.1);
   --red:#f87171;--rd:rgba(248,113,113,.1);
@@ -22,49 +21,57 @@
   --mono:'JetBrains Mono',monospace;--sans:'Inter',system-ui,sans-serif;--r:10px;
 }
 body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column}
-
-/* TOPBAR */
 .topbar{height:52px;display:flex;align-items:center;gap:12px;padding:0 20px;border-bottom:1px solid var(--bd);background:var(--s1);flex-shrink:0}
 .logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
 .topbar h1{font-size:14px;font-weight:600}
-.tag{font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--ag);color:var(--accent2);border:1px solid rgba(99,102,241,.3)}
-.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--sub)}
+.tag{font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px;background:var(--ag);color:var(--a2);border:1px solid rgba(99,102,241,.3)}
+.tr{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--sub)}
 .pdot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:gp 2s infinite}
 @keyframes gp{0%,100%{box-shadow:0 0 0 2px var(--gd)}50%{box-shadow:0 0 0 5px var(--gd)}}
-
-/* LAYOUT */
 .layout{display:flex;flex:1;overflow:hidden}
-
-/* SIDEBAR */
 .sidebar{width:290px;flex-shrink:0;display:flex;flex-direction:column;background:var(--s1);border-right:1px solid var(--bd);overflow-y:auto}
-.sb-inner{padding:16px;display:flex;flex-direction:column;gap:16px}
+.sb{padding:16px;display:flex;flex-direction:column;gap:15px}
 .lbl{display:block;font-size:10px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
 .story-ta{width:100%;min-height:100px;background:var(--s2);border:1px solid var(--bd2);border-radius:var(--r);color:var(--text);font-family:var(--sans);font-size:12.5px;line-height:1.65;padding:9px 12px;resize:vertical;outline:none;transition:border-color .15s,box-shadow .15s}
 .story-ta:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ag)}
 .story-ta::placeholder{color:var(--muted)}
 .char-c{font-size:10px;color:var(--muted);text-align:right;margin-top:3px}
-.lang-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.lg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
 .lb{padding:7px 4px;border-radius:7px;border:1px solid var(--bd2);background:var(--s2);color:var(--sub);font-family:var(--sans);font-size:11px;font-weight:500;cursor:pointer;text-align:center;transition:all .12s}
-.lb:hover{border-color:var(--accent);color:var(--accent2);background:var(--ag)}
-.lb.active{background:var(--ag);border-color:var(--accent);color:var(--accent2);font-weight:600}
-.url-wrap{position:relative}
-.url-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted)}
-.url-inp{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:10.5px;padding:8px 10px 8px 28px;outline:none;transition:border-color .15s}
-.url-inp:focus{border-color:var(--accent)}
+.lb:hover{border-color:var(--accent);color:var(--a2);background:var(--ag)}
+.lb.active{background:var(--ag);border-color:var(--accent);color:var(--a2);font-weight:600}
+.uw{position:relative}
+.ui2{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted)}
+.url-i{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:10.5px;padding:8px 10px 8px 28px;outline:none;transition:border-color .15s}
+.url-i:focus{border-color:var(--accent)}
 .run-btn{width:100%;padding:11px;border:none;border-radius:var(--r);background:linear-gradient(135deg,var(--accent),#4f46e5);color:#fff;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 18px rgba(99,102,241,.35);transition:opacity .15s,transform .1s}
 .run-btn:hover{opacity:.88;transform:translateY(-1px)}
 .run-btn:active{transform:translateY(0)}
 .run-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
-.tip{background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:11px 12px;font-size:11.5px;color:var(--sub);line-height:1.6}
-.tip strong{color:var(--accent2);font-weight:600}
+.tip{background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:10px 12px;font-size:11.5px;color:var(--sub);line-height:1.6}
+.tip strong{color:var(--a2);font-weight:600}
 .sep{height:1px;background:var(--bd);margin:2px 0}
-.hist-item{padding:9px 11px;border-radius:8px;border:1px solid var(--bd);background:var(--s2);font-size:11px;color:var(--sub);line-height:1.4;cursor:pointer;transition:all .12s;margin-bottom:5px}
-.hist-item:hover{border-color:var(--bd2);color:var(--text)}
-.hs{font-size:10px;margin-top:3px;font-weight:500}
-.hp{color:var(--green)}.hf{color:var(--red)}
-.no-hist{font-size:11.5px;color:var(--muted)}
 
-/* CANVAS */
+/* ── HISTORY ── */
+.hist-item{padding:10px 11px;border-radius:8px;border:1px solid var(--bd);background:var(--s2);font-size:11px;color:var(--sub);line-height:1.4;margin-bottom:6px;transition:border-color .12s}
+.hist-item:hover{border-color:var(--bd2)}
+.hist-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;cursor:pointer}
+.hist-story{flex:1;font-size:11px;line-height:1.45;color:var(--text);font-weight:500}
+.hbadge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.hb-ok{background:var(--gd);color:var(--green)}
+.hb-fail{background:var(--rd);color:var(--red)}
+.hb-run{background:var(--ad);color:var(--amber)}
+.hist-meta{font-size:10px;color:var(--muted);margin-top:3px}
+.hist-actions{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+.hact{font-size:10px;font-weight:500;padding:4px 8px;border-radius:5px;cursor:pointer;border:none;font-family:var(--sans);text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:opacity .12s}
+.hact:hover{opacity:.75}
+.hact-view{background:var(--ag);color:var(--a2)}
+.hact-pdf{background:var(--rd);color:var(--red)}
+.hact-docx{background:var(--ag);color:var(--a2)}
+.hact-src{background:var(--cd);color:var(--cyan)}
+.no-hist{font-size:11.5px;color:var(--muted);padding:2px 0}
+
+/* ── CANVAS ── */
 .canvas{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
 .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:40px}
 .empty-icon{width:60px;height:60px;border-radius:16px;background:var(--s2);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:26px}
@@ -72,26 +79,20 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .empty-sub{font-size:13px;color:var(--sub);max-width:300px;line-height:1.6}
 .ex-btn{display:block;width:100%;max-width:400px;padding:9px 13px;background:var(--s2);border:1px solid var(--bd2);border-radius:8px;color:var(--sub);font-size:11.5px;font-family:var(--sans);cursor:pointer;text-align:left;transition:all .12s;margin-top:5px;line-height:1.4}
 .ex-btn:hover{border-color:var(--accent);color:var(--text);background:var(--ag)}
-
-/* RUN HEADER */
 .run-hdr{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px}
-.run-icon{width:38px;height:38px;border-radius:10px;flex-shrink:0;background:var(--ag);border:1px solid rgba(99,102,241,.3);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--accent2)}
+.run-icon{width:38px;height:38px;border-radius:10px;flex-shrink:0;background:var(--ag);border:1px solid rgba(99,102,241,.3);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--a2)}
 .run-title{font-size:14px;font-weight:600}
 .run-sub{font-size:11.5px;color:var(--sub);margin-top:2px}
-.rbadge{margin-left:auto;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;letter-spacing:.02em}
+.rbadge{margin-left:auto;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px}
 .rb-run{background:var(--ad);color:var(--amber);border:1px solid rgba(251,191,36,.2)}
 .rb-ok{background:var(--gd);color:var(--green);border:1px solid rgba(52,211,153,.2)}
 .rb-fail{background:var(--rd);color:var(--red);border:1px solid rgba(248,113,113,.2)}
-
-/* METRICS */
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .mc{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
 .mc-val{font-size:20px;font-weight:700;letter-spacing:-.02em}
 .mc-lbl{font-size:10.5px;color:var(--muted);margin-top:3px}
-.ca{color:var(--accent2)}.cc{color:var(--cyan)}.cg{color:var(--green)}.cp{color:var(--purple)}
-
-/* PIPELINE */
-.pipeline{display:flex;gap:0;position:relative}
+.ca{color:var(--a2)}.cc{color:var(--cyan)}.cg{color:var(--green)}.cp{color:var(--purple)}
+.pipeline{display:flex;position:relative}
 .spine-rail{width:2px;background:var(--bd2);border-radius:2px;margin:20px 19px;position:relative;flex-shrink:0}
 .spine-fill{position:absolute;top:0;left:0;width:100%;background:linear-gradient(180deg,var(--accent),var(--cyan));border-radius:2px;transition:height .6s cubic-bezier(.4,0,.2,1)}
 .stages{flex:1;display:flex;flex-direction:column;gap:8px}
@@ -102,102 +103,84 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .stage-hdr{display:flex;align-items:center;gap:12px;padding:13px 15px;cursor:pointer;transition:background .12s}
 .stage-hdr:hover{background:rgba(255,255,255,.02)}
 .sdot{width:10px;height:10px;border-radius:50%;flex-shrink:0;background:var(--bd2);transition:all .3s}
-.sdot.idle{background:var(--bd2)}
-.sdot.running{background:var(--amber);box-shadow:0 0 0 3px var(--ad);animation:rp 1.3s infinite}
-.sdot.done{background:var(--green);box-shadow:0 0 0 3px var(--gd)}
-.sdot.failed{background:var(--red);box-shadow:0 0 0 3px var(--rd)}
+.sdot.idle{background:var(--bd2)}.sdot.running{background:var(--amber);box-shadow:0 0 0 3px var(--ad);animation:rp 1.3s infinite}
+.sdot.done{background:var(--green);box-shadow:0 0 0 3px var(--gd)}.sdot.failed{background:var(--red);box-shadow:0 0 0 3px var(--rd)}
 @keyframes rp{0%,100%{box-shadow:0 0 0 3px var(--ad)}50%{box-shadow:0 0 0 7px var(--ad)}}
 .snum{width:24px;height:24px;border-radius:6px;background:var(--s3);border:1px solid var(--bd2);font-size:10px;font-weight:700;color:var(--sub);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sinfo{flex:1}
-.sname{font-size:13px;font-weight:600}
-.sdesc{font-size:11px;color:var(--sub);margin-top:1px}
+.sinfo{flex:1}.sname{font-size:13px;font-weight:600}.sdesc{font-size:11px;color:var(--sub);margin-top:1px}
 .sbadge{font-size:10px;font-weight:600;padding:3px 7px;border-radius:5px}
-.sb-run{background:var(--ad);color:var(--amber)}
-.sb-ok{background:var(--gd);color:var(--green)}
-.sb-fail{background:var(--rd);color:var(--red)}
-.sb-gen{background:var(--cd);color:var(--cyan)}
-.chev{font-size:13px;color:var(--muted);transition:transform .2s}
-.chev.open{transform:rotate(180deg)}
-
-/* STAGE BODY */
+.sb-run{background:var(--ad);color:var(--amber)}.sb-ok{background:var(--gd);color:var(--green)}
+.sb-fail{background:var(--rd);color:var(--red)}.sb-gen{background:var(--cd);color:var(--cyan)}
+.chev{font-size:13px;color:var(--muted);transition:transform .2s}.chev.open{transform:rotate(180deg)}
 .stage-body{border-top:1px solid var(--bd);max-height:0;overflow:hidden;opacity:0;transition:max-height .35s ease,opacity .25s}
-.stage-body.open{max-height:700px;opacity:1;overflow-y:auto}
+.stage-body.open{max-height:800px;opacity:1;overflow-y:auto}
 .tab-bar{display:flex;padding:0 14px;background:var(--s2);border-bottom:1px solid var(--bd);gap:2px}
 .tab{padding:8px 12px;font-size:11.5px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .12s,border-color .12s}
-.tab.active{color:var(--accent2);border-color:var(--accent)}
-.tab-panel{display:none;padding:14px}
-.tab-panel.active{display:block}
-
-/* CODE */
+.tab.active{color:var(--a2);border-color:var(--accent)}
+.tab-panel{display:none;padding:14px}.tab-panel.active{display:block}
 .code-wrap{background:var(--s2);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
 .code-bar{display:flex;align-items:center;padding:7px 11px;border-bottom:1px solid var(--bd);gap:6px}
 .cd{width:9px;height:9px;border-radius:50%}.cd1{background:#ff5f57}.cd2{background:#febc2e}.cd3{background:#28c840}
 .clang{font-size:10px;color:var(--muted);margin-left:auto;font-family:var(--mono)}
 .code-body{padding:12px 14px;font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--text);white-space:pre-wrap;word-break:break-word;max-height:280px;overflow-y:auto}
-.jk{color:var(--accent2)}.js{color:var(--green)}.jn{color:var(--amber)}.jb{color:var(--purple)}
-
-/* CRITERIA LIST */
+.jk{color:var(--a2)}.js{color:var(--green)}.jn{color:var(--amber)}.jb{color:var(--purple)}
 .clist{list-style:none;display:flex;flex-direction:column;gap:5px}
 .clist li{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.6;padding:7px 10px;border-radius:7px;background:var(--s3);color:var(--text)}
-.cbullet{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px}
-.cb-a{background:var(--accent2)}.cb-am{background:var(--amber)}.cb-g{background:var(--green)}
+.cb{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.cb-a{background:var(--a2)}.cb-am{background:var(--amber)}.cb-g{background:var(--green)}
 
 /* ── DOWNLOAD SECTION ── */
-.dl-section{background:var(--s3);border:1px solid var(--bd2);border-radius:10px;padding:14px;margin-bottom:12px}
-.dl-title{font-size:11.5px;font-weight:600;color:var(--sub);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.dl-btn{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  padding:12px 8px;border-radius:9px;cursor:pointer;
-  border:1px solid var(--bd2);background:var(--s2);
-  font-family:var(--sans);transition:all .15s;text-decoration:none;color:inherit;
-}
-.dl-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
-.dl-btn.smoke:hover{border-color:var(--amber);background:var(--ad)}
-.dl-btn.regression:hover{border-color:var(--red);background:var(--rd)}
-.dl-btn.primary:hover{border-color:var(--accent);background:var(--ag)}
-.dl-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
-.smoke .dl-icon{background:var(--ad);color:var(--amber)}
-.regression .dl-icon{background:var(--rd);color:var(--red)}
-.primary .dl-icon{background:var(--ag);color:var(--accent2)}
-.dl-name{font-size:11.5px;font-weight:600;text-align:center}
-.smoke .dl-name{color:var(--amber)}.regression .dl-name{color:var(--red)}.primary .dl-name{color:var(--accent2)}
-.dl-sub{font-size:10px;color:var(--muted);text-align:center;line-height:1.4}
-.dl-count{font-size:10px;font-weight:600;padding:2px 6px;border-radius:4px;margin-top:2px}
-.smoke .dl-count{background:var(--ad);color:var(--amber)}
-.regression .dl-count{background:var(--rd);color:var(--red)}
-.primary .dl-count{background:var(--ag);color:var(--accent2)}
+.dl-section{background:var(--s3);border:1px solid var(--bd2);border-radius:12px;padding:16px;margin-bottom:14px}
+.dl-section-title{font-size:12px;font-weight:600;color:var(--sub);margin-bottom:12px;display:flex;align-items:center;gap:7px;text-transform:uppercase;letter-spacing:.05em}
+.dl-row-label{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:12px 0 8px;display:flex;align-items:center;gap:8px}
+.dl-row-label::after{content:'';flex:1;height:1px;background:var(--bd)}
+.dl-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dl-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dl-card{display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 10px;border-radius:10px;cursor:pointer;border:1px solid var(--bd2);background:var(--s2);text-decoration:none;color:inherit;transition:all .15s}
+.dl-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.dl-card.smoke:hover{border-color:var(--amber);background:rgba(251,191,36,.08)}
+.dl-card.regression:hover{border-color:var(--red);background:rgba(248,113,113,.08)}
+.dl-card.primary:hover{border-color:var(--cyan);background:rgba(34,211,238,.08)}
+.dl-card.pdf:hover{border-color:var(--red);background:rgba(248,113,113,.08)}
+.dl-card.docx:hover{border-color:var(--a2);background:rgba(129,140,248,.08)}
+.dl-card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px}
+.smoke .dl-card-icon{background:var(--ad);color:var(--amber)}
+.regression .dl-card-icon{background:var(--rd);color:var(--red)}
+.primary .dl-card-icon{background:var(--cd);color:var(--cyan)}
+.pdf .dl-card-icon{background:var(--rd);color:var(--red)}
+.docx .dl-card-icon{background:var(--ag);color:var(--a2)}
+.dl-card-name{font-size:12px;font-weight:600;text-align:center}
+.smoke .dl-card-name{color:var(--amber)}.regression .dl-card-name{color:var(--red)}
+.primary .dl-card-name{color:var(--cyan)}.pdf .dl-card-name{color:var(--red)}.docx .dl-card-name{color:var(--a2)}
+.dl-card-sub{font-size:10px;color:var(--muted);text-align:center;line-height:1.5}
+.dl-card-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;margin-top:2px}
+.smoke .dl-card-badge{background:var(--ad);color:var(--amber)}
+.regression .dl-card-badge{background:var(--rd);color:var(--red)}
+.primary .dl-card-badge{background:var(--cd);color:var(--cyan)}
+.pdf .dl-card-badge,.docx .dl-card-badge{background:var(--s1);color:var(--sub);border:1px solid var(--bd)}
 
-/* TEST BANNER */
 .test-banner{display:flex;align-items:center;gap:9px;padding:10px 13px;border-radius:8px;font-size:12.5px;font-weight:600;margin-bottom:10px}
 .tb-pass{background:var(--gd);color:var(--green);border:1px solid rgba(52,211,153,.2)}
 .tb-fail{background:var(--rd);color:var(--red);border:1px solid rgba(248,113,113,.2)}
 .tb-gen{background:var(--cd);color:var(--cyan);border:1px solid rgba(34,211,238,.2)}
-
-/* PR */
 .pr-card{background:var(--s2);border:1px solid var(--bd);border-radius:9px;padding:14px}
 .pr-title{font-size:13px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .pr-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:var(--pd);color:var(--purple)}
 .pr-desc{font-size:11.5px;color:var(--sub);line-height:1.75;white-space:pre-wrap}
 .pr-log{margin-top:10px;padding-top:10px;border-top:1px solid var(--bd);font-size:10.5px;color:var(--muted);font-family:var(--mono)}
-
-/* ERROR */
-.err{background:var(--rd);border:1px solid rgba(248,113,113,.25);border-radius:10px;padding:13px 15px;font-size:12.5px;color:var(--red);display:flex;gap:10px}
+.err{background:var(--rd);border:1px solid rgba(248,113,113,.25);border-radius:10px;padding:13px 15px;font-size:12.5px;color:var(--red);display:flex;gap:10px;margin-top:8px}
 .err code{font-family:var(--mono);font-size:10.5px;opacity:.8}
 </style>
 </head>
 <body>
-
 <div class="topbar">
   <div class="logo"><i class="ti ti-arrows-right-left"></i></div>
-  <h1>AI SDLC Pipeline</h1>
-  <span class="tag">Perficient</span>
-  <div class="topbar-right"><div class="pdot"></div>Claude · Portkey Gateway</div>
+  <h1>AI SDLC Pipeline</h1><span class="tag">Perficient</span>
+  <div class="tr"><div class="pdot"></div>Claude · Portkey Gateway</div>
 </div>
-
 <div class="layout">
   <aside class="sidebar">
-    <div class="sb-inner">
+    <div class="sb">
       <div>
         <label class="lbl">User story</label>
         <textarea class="story-ta" id="story" oninput="upChar(this)" placeholder="As a user, I want to…">As a user, I want to filter products by price range so I can find items within my budget.</textarea>
@@ -205,7 +188,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       </div>
       <div>
         <label class="lbl">Target language</label>
-        <div class="lang-grid" id="langGrid">
+        <div class="lg" id="langGrid">
           <button class="lb active" data-lang="python">Python</button>
           <button class="lb" data-lang="java">Java</button>
           <button class="lb" data-lang="typescript">TypeScript</button>
@@ -216,29 +199,23 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       </div>
       <div>
         <label class="lbl">Backend API</label>
-        <div class="url-wrap">
-          <i class="ti ti-link url-icon"></i>
-          <input class="url-inp" id="apiUrl" value="http://localhost:8000">
-        </div>
+        <div class="uw"><i class="ti ti-link ui2"></i><input class="url-i" id="apiUrl" value="http://localhost:8000"></div>
       </div>
-      <button class="run-btn" id="runBtn" onclick="runPipeline()">
-        <i class="ti ti-player-play"></i> Run pipeline
-      </button>
-      <div class="tip"><strong>Tip:</strong> Pick a self-contained feature — the agent self-corrects code if tests fail, then downloads smoke &amp; regression suites automatically.</div>
+      <button class="run-btn" id="runBtn" onclick="runPipeline()"><i class="ti ti-player-play"></i> Run pipeline</button>
+      <div class="tip"><strong>Tip:</strong> After each run, download smoke &amp; regression tests plus a full PDF or Word report from the Test agent panel.</div>
       <div class="sep"></div>
       <div>
-        <label class="lbl">Run history</label>
-        <div id="histList"><div class="no-hist">No runs yet.</div></div>
+        <label class="lbl">Run history <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(click any run to view)</span></label>
+        <div id="histList"><div class="no-hist">Loading…</div></div>
       </div>
     </div>
   </aside>
-
   <main class="canvas" id="canvas">
     <div class="empty-state" id="emptyState">
-      <div class="empty-icon"><i class="ti ti-test-pipe" style="color:var(--accent2)"></i></div>
+      <div class="empty-icon"><i class="ti ti-test-pipe" style="color:var(--a2)"></i></div>
       <div class="empty-title">Ready to generate</div>
-      <div class="empty-sub">Enter a user story, pick a language, and run all 5 agents — smoke &amp; regression tests auto-download when complete.</div>
-      <div style="font-size:11.5px;color:var(--sub);margin-top:4px">Quick examples:</div>
+      <div class="empty-sub">Enter a user story, pick a language, and run — smoke &amp; regression tests plus PDF/Word reports are auto-generated.</div>
+      <div style="font-size:11.5px;color:var(--sub);margin-top:6px">Quick examples:</div>
       <button class="ex-btn" onclick="use(this)">As a user, I want to validate email addresses so invalid emails are rejected at signup.</button>
       <button class="ex-btn" onclick="use(this)">As a user, I want to calculate cart total with tax so I know my final checkout price.</button>
       <button class="ex-btn" onclick="use(this)">As an admin, I want to search users by name or email so I can quickly find any account.</button>
@@ -254,17 +231,65 @@ const STAGES=[
   {key:'tests',title:'Test agent',desc:'Generates smoke & regression suites, executes in sandbox',num:'04'},
   {key:'deployment',title:'Deployment agent',desc:'Produces PR title, description, and changelog entry',num:'05'},
 ];
-
-let lang='python', hist=[], lastRunId=null, lastApiUrl='http://localhost:8000';
+let lang='python';
 
 document.querySelectorAll('.lb').forEach(b=>{
   b.onclick=()=>{lang=b.dataset.lang;document.querySelectorAll('.lb').forEach(x=>x.classList.remove('active'));b.classList.add('active')};
 });
 
+function apiUrl(){return(document.getElementById('apiUrl').value||'http://localhost:8000').replace(/\/$/,'')}
 function upChar(el){const c=document.getElementById('charC');if(c)c.textContent=`${el.value.length} characters`}
 function use(btn){const t=document.getElementById('story');t.value=btn.textContent.trim();upChar(t);t.focus()}
-const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
+/* ────────────────── HISTORY ────────────────── */
+async function loadHistory(){
+  const el=document.getElementById('histList');
+  try{
+    const resp=await fetch(`${apiUrl()}/runs?limit=20`);
+    if(!resp.ok){el.innerHTML='<div class="no-hist">Could not load history.</div>';return;}
+    const rows=await resp.json();
+    if(!rows.length){el.innerHTML='<div class="no-hist">No runs yet — click Run pipeline.</div>';return;}
+    el.innerHTML=rows.map(r=>{
+      const ok=r.status==='success';
+      const running=r.status==='running';
+      const bc=ok?'hb-ok':running?'hb-run':'hb-fail';
+      const bt=ok?'✓ passed':running?'● running':'⚠ review';
+      const story=(r.user_story||'').slice(0,52)+(r.user_story?.length>52?'…':'');
+      const date=r.finished_at?r.finished_at.slice(0,16).replace('T',' '):(r.started_at||'').slice(0,16).replace('T',' ');
+      const acts=r.status!=='running'?`
+        <div class="hist-actions">
+          <button class="hact hact-view" onclick="viewRun('${r.id}')"><i class="ti ti-eye"></i>View</button>
+          <a class="hact hact-pdf" href="${apiUrl()}/download/${r.id}/pdf" download><i class="ti ti-file-type-pdf"></i>PDF</a>
+          <a class="hact hact-docx" href="${apiUrl()}/download/${r.id}/docx" download><i class="ti ti-file-word"></i>Word</a>
+          <a class="hact hact-src" href="${apiUrl()}/download/${r.id}/source" download><i class="ti ti-code"></i>Source</a>
+        </div>`:'';
+      return`<div class="hist-item">
+        <div class="hist-top" onclick="viewRun('${r.id}')">
+          <div class="hist-story">${esc(story)}</div>
+          <span class="hbadge ${bc}">${bt}</span>
+        </div>
+        <div class="hist-meta">${esc(r.language||'')}${date?' · '+date:''}</div>
+        ${acts}
+      </div>`;
+    }).join('');
+  }catch(e){el.innerHTML='<div class="no-hist">Backend offline.</div>';}
+}
+
+/* load a past run back into the main view */
+async function viewRun(runId){
+  try{
+    const resp=await fetch(`${apiUrl()}/run/${runId}`);
+    if(!resp.ok)return;
+    const row=await resp.json();
+    if(!row.result_json)return;
+    const data=JSON.parse(row.result_json);
+    buildLayout();
+    renderResult(data);
+  }catch(e){alert('Could not load run: '+e.message);}
+}
+
+/* ────────────────── HELPERS ────────────────── */
 function jsonHl(obj){
   return JSON.stringify(obj,null,2)
     .replace(/"([^"]+)":/g,'<span class="jk">"$1"</span>:')
@@ -272,44 +297,61 @@ function jsonHl(obj){
     .replace(/: (\d+\.?\d*)/g,': <span class="jn">$1</span>')
     .replace(/: (true|false)/g,': <span class="jb">$1</span>');
 }
-function codeBlk(txt,lang=''){return`<div class="code-wrap"><div class="code-bar"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div><span class="clang">${esc(lang)}</span></div><div class="code-body">${esc(txt||'—')}</div></div>`}
-function jsonBlk(obj,l='json'){return`<div class="code-wrap"><div class="code-bar"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div><span class="clang">${l}</span></div><div class="code-body">${jsonHl(obj)}</div></div>`}
-function clist(arr,col='a'){return`<ul class="clist">${(arr||[]).map(c=>`<li><div class="cbullet cb-${col}"></div>${esc(c)}</li>`).join('')}</ul>`}
+function codeBlk(txt,l=''){return`<div class="code-wrap"><div class="code-bar"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div><span class="clang">${esc(l)}</span></div><div class="code-body">${esc(txt||'—')}</div></div>`}
+function jsonBlk(o,l='json'){return`<div class="code-wrap"><div class="code-bar"><div class="cd cd1"></div><div class="cd cd2"></div><div class="cd cd3"></div><span class="clang">${l}</span></div><div class="code-body">${jsonHl(o)}</div></div>`}
+function clist(arr,col='a'){return`<ul class="clist">${(arr||[]).map(c=>`<li><div class="cb cb-${col}"></div>${esc(c)}</li>`).join('')}</ul>`}
+function countTests(code,pfx){return code?(code.match(new RegExp(`def ${pfx}_`,'g'))||[]).length:0}
 
-function countTests(code,prefix){
-  if(!code) return 0;
-  return (code.match(new RegExp(`def ${prefix}_`,'g'))||[]).length;
-}
-
-function dlSection(runId,apiUrl){
+/* ────────────────── DOWNLOAD SECTION ────────────────── */
+function dlSection(runId){
+  const base=apiUrl();
   return`<div class="dl-section">
-    <div class="dl-title"><i class="ti ti-download"></i>Download test suites</div>
-    <div class="dl-grid">
-      <a class="dl-btn smoke" href="${apiUrl}/download/${runId}/smoke" download>
-        <div class="dl-icon"><i class="ti ti-flame"></i></div>
-        <div class="dl-name">Smoke Tests</div>
-        <div class="dl-sub">Happy-path coverage<br>Fast &amp; essential</div>
-        <span class="dl-count" id="smoke-count">3-6 tests</span>
+    <div class="dl-section-title"><i class="ti ti-download"></i>Downloads</div>
+
+    <div class="dl-row-label">Test suites</div>
+    <div class="dl-grid3">
+      <a class="dl-card smoke" href="${base}/download/${runId}/smoke" download>
+        <div class="dl-card-icon"><i class="ti ti-flame"></i></div>
+        <div class="dl-card-name">Smoke Tests</div>
+        <div class="dl-card-sub">Happy-path checks<br>Fast &amp; essential</div>
+        <span class="dl-card-badge" id="cnt-smoke">3–6 tests</span>
       </a>
-      <a class="dl-btn regression" href="${apiUrl}/download/${runId}/regression" download>
-        <div class="dl-icon"><i class="ti ti-bug"></i></div>
-        <div class="dl-name">Regression Tests</div>
-        <div class="dl-sub">Full edge case coverage<br>Prevents regressions</div>
-        <span class="dl-count" id="reg-count">10-20 tests</span>
+      <a class="dl-card regression" href="${base}/download/${runId}/regression" download>
+        <div class="dl-card-icon"><i class="ti ti-bug"></i></div>
+        <div class="dl-card-name">Regression Tests</div>
+        <div class="dl-card-sub">Full edge coverage<br>Prevents regressions</div>
+        <span class="dl-card-badge" id="cnt-reg">10–20 tests</span>
       </a>
-      <a class="dl-btn primary" href="${apiUrl}/download/${runId}/primary" download>
-        <div class="dl-icon"><i class="ti ti-code"></i></div>
-        <div class="dl-name">Primary Suite</div>
-        <div class="dl-sub">Executed in sandbox<br>Used for retry loop</div>
-        <span class="dl-count" id="pri-count">Full suite</span>
+      <a class="dl-card primary" href="${base}/download/${runId}/primary" download>
+        <div class="dl-card-icon"><i class="ti ti-code"></i></div>
+        <div class="dl-card-name">Primary Suite</div>
+        <div class="dl-card-sub">Sandbox executed<br>Used for retry loop</div>
+        <span class="dl-card-badge" id="cnt-pri">Full suite</span>
+      </a>
+    </div>
+
+    <div class="dl-row-label">Full report (code + tests + requirements)</div>
+    <div class="dl-grid2">
+      <a class="dl-card pdf" href="${base}/download/${runId}/pdf" download>
+        <div class="dl-card-icon"><i class="ti ti-file-type-pdf"></i></div>
+        <div class="dl-card-name">PDF Report</div>
+        <div class="dl-card-sub">All 7 sections formatted<br>Requirements · Code · Tests · PR</div>
+        <span class="dl-card-badge">Download PDF</span>
+      </a>
+      <a class="dl-card docx" href="${base}/download/${runId}/docx" download>
+        <div class="dl-card-icon"><i class="ti ti-file-word"></i></div>
+        <div class="dl-card-name">Word Report</div>
+        <div class="dl-card-sub">Editable .docx format<br>Same content as PDF</div>
+        <span class="dl-card-badge">Download .docx</span>
       </a>
     </div>
   </div>`;
 }
 
+/* ────────────────── BUILD LAYOUT ────────────────── */
 function buildLayout(){
   document.getElementById('canvas').innerHTML=`
-    <div class="run-hdr" id="runHdr">
+    <div class="run-hdr">
       <div class="run-icon"><i class="ti ti-arrows-right-left"></i></div>
       <div><div class="run-title">Pipeline run</div><div class="run-sub" id="runSub">Agents starting…</div></div>
       <span class="rbadge rb-run" id="runBadge">Running</span>
@@ -326,8 +368,7 @@ function buildLayout(){
     </div>`;
   const sl=document.getElementById('stagesEl');
   STAGES.forEach(s=>{
-    const d=document.createElement('div');
-    d.className='stage';d.id=`sc-${s.key}`;
+    const d=document.createElement('div');d.className='stage';d.id=`sc-${s.key}`;
     d.innerHTML=`
       <div class="stage-hdr" onclick="tog('${s.key}')">
         <div class="sdot idle" id="dot-${s.key}"></div>
@@ -343,21 +384,20 @@ function buildLayout(){
   });
 }
 
-function tog(key){document.getElementById(`body-${key}`)?.classList.toggle('open');document.getElementById(`chev-${key}`)?.classList.toggle('open')}
-function openS(key){
-  document.getElementById(`sc-${key}`)?.classList.add('active');
-  const b=document.getElementById(`body-${key}`);const c=document.getElementById(`chev-${key}`);
+function tog(k){document.getElementById(`body-${k}`)?.classList.toggle('open');document.getElementById(`chev-${k}`)?.classList.toggle('open')}
+function openS(k){
+  document.getElementById(`sc-${k}`)?.classList.add('active');
+  const b=document.getElementById(`body-${k}`);const c=document.getElementById(`chev-${k}`);
   if(b&&!b.classList.contains('open'))b.classList.add('open');
   if(c&&!c.classList.contains('open'))c.classList.add('open');
 }
-function dot(key,state){
-  const e=document.getElementById(`dot-${key}`);if(e)e.className=`sdot ${state}`;
-  const sc=document.getElementById(`sc-${key}`);
-  if(sc)sc.className='stage'+(state==='done'?' done':state==='failed'?' failed':state==='running'?' active':'');
+function dot(k,st){
+  const e=document.getElementById(`dot-${k}`);if(e)e.className=`sdot ${st}`;
+  const sc=document.getElementById(`sc-${k}`);
+  if(sc)sc.className='stage'+(st==='done'?' done':st==='failed'?' failed':st==='running'?' active':'');
 }
-function badge(key,html){const e=document.getElementById(`badge-${key}`);if(e)e.innerHTML=html}
+function badge(k,h){const e=document.getElementById(`badge-${k}`);if(e)e.innerHTML=h}
 function spine(n){const p=document.getElementById('spineF');if(p)p.style.height=(n/STAGES.length*100)+'%'}
-
 function setTabs(key,panels){
   const tb=document.getElementById(`tabs-${key}`);const pw=document.getElementById(`panels-${key}`);
   if(!tb||!pw)return;tb.innerHTML='';pw.innerHTML='';
@@ -369,19 +409,17 @@ function setTabs(key,panels){
   });
 }
 
+/* ────────────────── RENDER ────────────────── */
 function renderResult(data){
-  const apiUrl=document.getElementById('apiUrl').value.trim()||'http://localhost:8000';
-  lastApiUrl=apiUrl; lastRunId=data.run_id;
-
   const sub=document.getElementById('runSub');const rb=document.getElementById('runBadge');
-  if(sub)sub.textContent=`Finished in ${data.elapsed_seconds}s · ${data.retry_count} retr${data.retry_count!==1?'ies':'y'}`;
+  const retries=data.retry_count??0;
+  if(sub)sub.textContent=`Finished in ${data.elapsed_seconds}s · ${retries} retr${retries!==1?'ies':'y'}`;
   if(rb){rb.textContent=data.status==='success'?'Complete':'Review needed';rb.className=`rbadge ${data.status==='success'?'rb-ok':'rb-fail'}`}
-  document.getElementById('mTime').textContent=data.elapsed_seconds;
-  document.getElementById('mRetry').textContent=data.retry_count;
+  document.getElementById('mTime').textContent=data.elapsed_seconds??'—';
+  document.getElementById('mRetry').textContent=retries;
   document.getElementById('mPts').textContent=data.requirement?.story_points??'—';
   document.getElementById('mStat').textContent=data.status==='success'?'✓ Passed':'⚠ Review';
 
-  // REQUIREMENT
   dot('requirement','done');
   setTabs('requirement',[
     {label:'Criteria',content:clist(data.requirement.acceptance_criteria,'a')},
@@ -389,16 +427,14 @@ function renderResult(data){
     {label:'JSON',content:jsonBlk(data.requirement,'requirement.json')},
   ]);openS('requirement');
 
-  // PLAN
   dot('plan','done');
   setTabs('plan',[
     {label:'Architecture',content:`<p style="font-size:12.5px;line-height:1.75">${esc(data.plan.architectural_rationale)}</p>`},
-    {label:'Files',content:`<ul class="clist">${(data.plan.files_to_create_or_modify||[]).map(f=>`<li><div class="cbullet cb-a"></div><code style="font-family:var(--mono);font-size:11px;color:var(--accent2)">${esc(f)}</code></li>`).join('')}</ul>`},
-    {label:'Signatures',content:`<ul class="clist">${(data.plan.function_or_class_signatures||[]).map(f=>`<li><div class="cbullet cb-a"></div><code style="font-family:var(--mono);font-size:11px">${esc(f)}</code></li>`).join('')}</ul>`},
+    {label:'Files',content:`<ul class="clist">${(data.plan.files_to_create_or_modify||[]).map(f=>`<li><div class="cb cb-a"></div><code style="font-family:var(--mono);font-size:11px;color:var(--a2)">${esc(f)}</code></li>`).join('')}</ul>`},
+    {label:'Signatures',content:`<ul class="clist">${(data.plan.function_or_class_signatures||[]).map(f=>`<li><div class="cb cb-a"></div><code style="font-family:var(--mono);font-size:11px">${esc(f)}</code></li>`).join('')}</ul>`},
     {label:'JSON',content:jsonBlk(data.plan,'plan.json')},
   ]);
 
-  // CODE
   dot('code','done');
   setTabs('code',[
     {label:'Source code',content:codeBlk(data.code.code,data.code.language)},
@@ -406,78 +442,69 @@ function renderResult(data){
     {label:'Assumptions',content:data.code.assumptions?.length?clist(data.code.assumptions,'am'):'<p style="font-size:12.5px;color:var(--sub)">None noted.</p>'},
   ]);
 
-  // TESTS — with download buttons
   const t=data.tests;
   const tState=t.executed?(t.passed?'done':'failed'):'done';
   dot('tests',tState);
   if(t.executed)badge('tests',t.passed?'<span class="sbadge sb-ok">Passed</span>':'<span class="sbadge sb-fail">Failed</span>');
   else badge('tests','<span class="sbadge sb-gen">Generated</span>');
-
-  const smokeCount=countTests(t.smoke_test_code,'test_smoke');
-  const regCount=countTests(t.regression_test_code,'test_reg');
-  const priCount=countTests(t.test_code,'test');
-
   const banner=t.executed
-    ?`<div class="test-banner ${t.passed?'tb-pass':'tb-fail'}"><i class="ti ti-${t.passed?'check':'x'}"></i>${t.passed?'All tests passed — code is verified':'Tests failed; code was retried automatically'}</div>`
-    :`<div class="test-banner tb-gen"><i class="ti ti-info-circle"></i>Tests generated — auto-execution not supported for this language</div>`;
-
-  const dl=dlSection(data.run_id,apiUrl);
+    ?`<div class="test-banner ${t.passed?'tb-pass':'tb-fail'}"><i class="ti ti-${t.passed?'check':'x'}"></i>${t.passed?'All tests passed — code verified':'Tests failed; code retried automatically'}</div>`
+    :`<div class="test-banner tb-gen"><i class="ti ti-info-circle"></i>Tests generated — auto-execution not available for this language</div>`;
 
   setTabs('tests',[
-    {label:'Downloads',content:dl+banner+codeBlk(t.test_output||t.failure_reason||'No output.','execution output')},
+    {label:'⬇ Downloads',content:dlSection(data.run_id)+banner+codeBlk(t.test_output||t.failure_reason||'No output.','execution output')},
     {label:'Smoke tests',content:codeBlk(t.smoke_test_code||'# Not available','smoke tests')},
     {label:'Regression',content:codeBlk(t.regression_test_code||'# Not available','regression tests')},
     {label:'Primary suite',content:codeBlk(t.test_code,'primary tests')},
   ]);
-
-  // Update counts
-  setTimeout(()=>{
-    const sc=document.getElementById('smoke-count');if(sc&&smokeCount>0)sc.textContent=`${smokeCount} test${smokeCount!==1?'s':''}`;
-    const rc=document.getElementById('reg-count');if(rc&&regCount>0)rc.textContent=`${regCount} test${regCount!==1?'s':''}`;
-    const pc=document.getElementById('pri-count');if(pc&&priCount>0)pc.textContent=`${priCount} test${priCount!==1?'s':''}`;
-  },200);
-
   openS('tests');
 
-  // DEPLOYMENT
+  // update test counts
+  setTimeout(()=>{
+    const sc=countTests(t.smoke_test_code,'test_smoke');
+    const rc=countTests(t.regression_test_code,'test_reg');
+    const pc=countTests(t.test_code,'test');
+    const e1=document.getElementById('cnt-smoke');if(e1&&sc>0)e1.textContent=`${sc} test${sc!==1?'s':''}`;
+    const e2=document.getElementById('cnt-reg');if(e2&&rc>0)e2.textContent=`${rc} test${rc!==1?'s':''}`;
+    const e3=document.getElementById('cnt-pri');if(e3&&pc>0)e3.textContent=`${pc} test${pc!==1?'s':''}`;
+  },400);
+
   dot('deployment','done');
   const d=data.deployment;
   setTabs('deployment',[
-    {label:'PR draft',content:`<div class="pr-card"><div class="pr-title"><i class="ti ti-git-pull-request" style="color:var(--accent2)"></i>${esc(d.pr_title)}<span class="pr-tag">draft</span></div><div class="pr-desc">${esc(d.pr_description)}</div><div class="pr-log">${esc(d.changelog_entry)}</div></div>`},
+    {label:'PR draft',content:`<div class="pr-card"><div class="pr-title"><i class="ti ti-git-pull-request" style="color:var(--a2)"></i>${esc(d.pr_title)}<span class="pr-tag">draft</span></div><div class="pr-desc">${esc(d.pr_description)}</div><div class="pr-log">${esc(d.changelog_entry)}</div></div>`},
     {label:'JSON',content:jsonBlk(d,'deployment.json')},
   ]);
 
   spine(5);
-  addHist(document.getElementById('story').value.trim().slice(0,55)+'…',data.status);
+  loadHistory();
 }
 
-function addHist(title,status){
-  hist.unshift({title,status});
-  const el=document.getElementById('histList');
-  el.innerHTML=hist.slice(0,5).map(h=>`<div class="hist-item"><div>${esc(h.title)}</div><div class="hs ${h.status==='success'?'hp':'hf'}">${h.status==='success'?'✓ passed':'⚠ review'}</div></div>`).join('');
-}
-
+/* ────────────────── RUN ────────────────── */
 async function runPipeline(){
   const story=document.getElementById('story').value.trim();
-  const apiUrl=document.getElementById('apiUrl').value.trim()||'http://localhost:8000';
   const btn=document.getElementById('runBtn');
   if(story.length<10){alert('Enter a user story first.');return;}
   buildLayout();
   btn.disabled=true;btn.innerHTML='<i class="ti ti-loader-2"></i> Running…';
-  STAGES.forEach((s,i)=>{setTimeout(()=>{dot(s.key,'running');badge(s.key,'<span class="sbadge sb-run">Running</span>');spine(i)},i*420)});
+  STAGES.forEach((s,i)=>setTimeout(()=>{dot(s.key,'running');badge(s.key,'<span class="sbadge sb-run">Running</span>');spine(i)},i*420));
   try{
-    const resp=await fetch(`${apiUrl}/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_story:story,language:lang})});
+    const resp=await fetch(`${apiUrl()}/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_story:story,language:lang})});
     if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.detail||`HTTP ${resp.status}`);}
     renderResult(await resp.json());
   }catch(err){
     const eb=document.createElement('div');eb.className='err';
-    eb.innerHTML=`<i class="ti ti-alert-triangle" style="flex-shrink:0;margin-top:1px"></i><div><strong>Pipeline failed</strong> — ${esc(err.message)}<br><code>Start backend: uvicorn api.main:app --reload --port 8000</code></div>`;
+    eb.innerHTML=`<i class="ti ti-alert-triangle" style="flex-shrink:0"></i><div><strong>Failed</strong> — ${esc(err.message)}<br><code>Start: uvicorn api.main:app --reload --port 8000</code></div>`;
     document.getElementById('canvas').appendChild(eb);
     STAGES.forEach(s=>dot(s.key,'idle'));
   }finally{
     btn.disabled=false;btn.innerHTML='<i class="ti ti-player-play"></i> Run pipeline';
   }
 }
+
+// Load history on page open and refresh every 30s
+loadHistory();
+setInterval(loadHistory, 30000);
 </script>
 </body>
 </html>
