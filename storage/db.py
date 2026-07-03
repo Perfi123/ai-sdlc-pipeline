@@ -8,7 +8,8 @@ import uuid
 from datetime import datetime, timezone
 from contextlib import contextmanager
 
-DB_PATH = "storage/runs.db"
+import os
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "runs.db")
 
 
 @contextmanager
